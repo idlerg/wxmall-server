@@ -20,4 +20,4 @@ const back_user = new Scheam({
     }
 })
 
-module.exports = mongoose.model('back_user',back_user,'back_user')
+module.exports = mongoose.model('userInfo',back_user,'userInfo')
