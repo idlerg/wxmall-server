@@ -6,29 +6,99 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+    <style>
+        .button {
+            height: 20px;
+            margin-bottom: 30px;
+            background: pink;
+        }
+    </style>
 </head>
 
 
 <body>
-    <div id="button1">点击</div>
-    <div id="button2">点击</div>
+    <input type="text" name="" id="name" placeholder="name" id="">
+    <input type="text" name="" id="age" placeholder="age" id="">
+    <input type="text" name="" id="gender" placeholder="gender" id="">
+    <div class="button" id="button1">添加数据</div>
+
+    <div class="button" id="button2">查找全部数据</div>
+
+    <input type="text" name="" id="name1" placeholder="name" id="">
+    <input type="text" name="" id="age1" placeholder="age" id="">
+    <input type="text" name="" id="gender1" placeholder="gender" id="">
+    <input type="text" name="" id="id1" placeholder="id" id="">
+    <div class="button" id="button3">条件查询数据</div>
+
+
+    <input type="text" name="" id="name2" placeholder="name" id="">
+    <input type="text" name="" id="newName2" placeholder="newname" id="">
+    <div class="button" id="button4">修改数据</div>
+
+    <input type="text" name="" id="age2" placeholder="age" id="">
+    <div class="button" id="button5">删除数据</div>
     <script>
-        $("#button1").click(function(){
-            $.post("http://localhost:3000/test/setData", {
-                name:"Donald Duck",
-                age:"16",
-                gender: 'man'
-            },
-            function(data,status){
-                console.log("Data: " + data + "\nStatus: " + status);
+       $(document).ready(function(){
+            // 添加数据
+            $("#button1").click(function(){
+                var params = {
+                    name: $('#name').val(),
+                    age: $('#age').val(),
+                    gender: $('#gender').val()
+                }
+                console.log($('#name').val());
+                console.log(params);
+                $.post("http://localhost:3000/test/setData", params,
+                function(data,status){
+                    console.log("Data: " + data + "\nStatus: " + status);
+                });
             });
-        });
-        $("#button2").click(function(){
-            $.get("http://localhost:3000/test/getData", {},
-            function(data,status){
-                console.log("Data: " + data + "\nStatus: " + status);
+            // 获取全部数据
+            $("#button2").click(function(){
+                $.get("http://localhost:3000/test/getData", {},
+                function(data,status){
+                    console.log("Data: " + data + "\nStatus: " + status);
+                });
             });
-        });
+
+            // 条件查询
+            $("#button3").click(function(){
+                var params = {
+                    // name: $('#name1').val(),
+                    _id: $('#id1').val()
+                }
+                console.log(params);
+                $.post("http://localhost:3000/test/getCondData", params,
+                function(data,status){
+                    console.log("Data: " + data + "\nStatus: " + status);
+                });
+            });
+
+
+            // 修改数据
+            $("#button4").click(function(){
+                var params = {
+                    name: $('#name2').val(),
+                    newName: $('#newName2').val()
+                }
+                $.post("http://localhost:3000/test/modifData", params,
+                function(data,status){
+                    console.log("Data: " + data + "\nStatus: " + status);
+                });
+            });
+
+            // 删除数据
+            $("#button5").click(function(){
+                var params = {
+                    age: $('#age2').val()
+                }
+                $.post("http://localhost:3000/test/deleteData", params,
+                function(data,status){
+                    console.log("Data: " + data + "\nStatus: " + status);
+                });
+            });
+            
+        })
   </script>
 </body>
 </html>
